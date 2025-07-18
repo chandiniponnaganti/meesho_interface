@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Favorite Products</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .product-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 15px;
+      width: 200px;
+      background: #fff;
+    }
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 20px;
+    }
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Meesho</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">Cart</a>
+      <a href="favorites.html">Favorites</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 style="text-align:center; color:#c71585;">My Favorite Products</h1>
+    <div class="product-grid" id="favorites-container"></div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+      const container = document.getElementById("favorites-container");
+
+      if (favorites.length === 0) {
+        container.innerHTML = "<p>No favorite products yet.</p>";
+        return;
+      }
+
+      favorites.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <img src="${product.img}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>Price: ₹${product.price}</p>
+        `;
+        container.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>
